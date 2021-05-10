@@ -2,14 +2,15 @@ import React from 'react';
 
 import * as renderFunctions from './render-functions';
 
-import { Expression, GraphPresets } from '../../types/graph.types';
+import { Expression, GraphPresets, RectanglePresets } from '../../types/graph.types';
 
 interface RenderProps {
   presets: GraphPresets;
   expression: Expression;
+  rectanglePresets: RectanglePresets;
 }
 
-export const Render: React.FC<RenderProps> = ({ presets, expression }) => {
+export const Render: React.FC<RenderProps> = ({ presets, expression, rectanglePresets }) => {
 
   const canvasRef = React.useRef<HTMLCanvasElement>();
 
@@ -21,8 +22,9 @@ export const Render: React.FC<RenderProps> = ({ presets, expression }) => {
     renderFunctions.clear(c, ctx);
     renderFunctions.renderAxis(c, ctx);
     renderFunctions.drawCurve(c, ctx, presets, expression);
+    renderFunctions.drawRectangles(c, ctx, presets, expression, rectanglePresets);
     console.log(presets)
-  }, [presets, expression]);
+  }, [presets, expression, rectanglePresets]);
 
   return (
     <>

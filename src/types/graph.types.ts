@@ -4,6 +4,13 @@ export interface GraphPresets {
   curveVertexCount: number;
 }
 
+export interface RectanglePresets {
+  min: number;
+  max: number;
+  rectangleCount: number;
+  rightSum: boolean;
+}
+
 export interface ExpressionComponent {
   coefficient: number;
   power: number;
