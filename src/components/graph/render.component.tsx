@@ -21,13 +21,12 @@ export const Render: React.FC<RenderProps> = ({ presets, expression }) => {
     renderFunctions.clear(c, ctx);
     renderFunctions.renderAxis(c, ctx);
     renderFunctions.drawCurve(c, ctx, presets, expression);
-    console.log("Nom: ", c.width);
-    console.log("Real: ", c.getBoundingClientRect().width);
+    console.log(presets)
   }, [presets, expression]);
 
   return (
     <>
-      <canvas ref={canvasRef} width={presets.width * 10} height={presets.height * 10} className="bg-white shadow-lg h-3/5 my-6 rounded-lg"></canvas>
+      <canvas ref={canvasRef} width={1600} height={900} className="bg-white shadow-lg h-3/5 my-6 rounded-lg"></canvas>
     </>
   )
 }

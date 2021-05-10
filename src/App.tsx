@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import 'katex/dist/katex.min.css';
 import { Equations } from './components/equations';
 import { Graph } from './components/graph';
 
