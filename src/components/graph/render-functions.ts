@@ -30,7 +30,7 @@ export const drawCurve = (c: HTMLCanvasElement, ctx: CanvasRenderingContext2D, p
   for(let i = (-presets.width / 2) + (presets.width / presets.curveVertexCount); i <= presets.width / 2; i += presets.width / presets.curveVertexCount) {
     ctx.lineTo(
       map(i, -presets.width / 2, presets.width / 2, 0, c.width),
-      map(computeExpression(exp, i), 0, presets.height, c.height / 2, 0),
+      map(computeExpression(exp, i) * 2, 0, presets.height, c.height / 2, 0),
     );
   }
   ctx.stroke();
@@ -38,25 +38,23 @@ export const drawCurve = (c: HTMLCanvasElement, ctx: CanvasRenderingContext2D, p
 
 export const drawRectangles = (
   c: HTMLCanvasElement, ctx: CanvasRenderingContext2D, presets: GraphPresets, exp: Expression, rPresets: RectanglePresets,
-) => {
-  let sum: number;
+): number => {
+  let sum: number = 0;
   ctx.beginPath();
   ctx.strokeStyle = "#0FF";
   ctx.lineWidth = 2;
   ctx.fillStyle = "#00F";
   const interval = (rPresets.max - rPresets.min) / rPresets.rectangleCount;
-  for(let i = !rPresets.rightSum ? rPresets.min : rPresets.min + interval; i <= (!rPresets ? rPresets.max - interval : rPresets.max); i += interval) {
+  for(let i = !rPresets.rightSum ? rPresets.min : rPresets.min + interval; i <= (!rPresets.rightSum ? rPresets.max - interval : rPresets.max); i += interval) {
     const y = computeExpression(exp, i);
-    console.log(y * interval);
     sum += (y * interval);
     ctx.rect(
       map(i, -presets.width / 2, presets.width / 2, 0, c.width),
-      map(computeExpression(exp, i), 0, presets.height, c.height / 2, 0),
+      map(y * 2, 0, presets.height, c.height / 2, 0),
       interval * (c.width / presets.width) * (rPresets.rightSum ? -1 : 1),
-      computeExpression(exp, i) * (c.height / presets.height) / 2
+      y * (c.height / presets.height)
     );
     ctx.stroke();
-    // ctx.fill();
-    console.log("Sum: ", sum);
   }
+  return sum;
 }

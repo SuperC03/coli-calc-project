@@ -7,7 +7,7 @@ import { Graph } from './components/graph';
 const App: React.FC = () => {
   return (
     <div id="app" className="bg-gray-200">
-      <main className="flex flex-col md:flex-row justify-between items-center w-full h-full mx-auto">
+      <main className=" text-gray-800 flex flex-col md:flex-row justify-between items-center w-full h-full mx-auto">
         <Graph />
         <Equations />
       </main>

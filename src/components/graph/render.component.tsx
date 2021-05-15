@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSum } from '../../utils/sum.store';
+
 import * as renderFunctions from './render-functions';
 
 import { Expression, GraphPresets, RectanglePresets } from '../../types/graph.types';
@@ -10,8 +12,8 @@ interface RenderProps {
   rectanglePresets: RectanglePresets;
 }
 
-export const Render: React.FC<RenderProps> = ({ presets, expression, rectanglePresets }) => {
-
+export const RenderComponent: React.FC<RenderProps> = ({ presets, expression, rectanglePresets }) => {
+  const setSum = useSum(state => state.setSum);
   const canvasRef = React.useRef<HTMLCanvasElement>();
 
   // Canvas Logic
@@ -22,9 +24,8 @@ export const Render: React.FC<RenderProps> = ({ presets, expression, rectanglePr
     renderFunctions.clear(c, ctx);
     renderFunctions.renderAxis(c, ctx);
     renderFunctions.drawCurve(c, ctx, presets, expression);
-    renderFunctions.drawRectangles(c, ctx, presets, expression, rectanglePresets);
-    console.log(presets)
-  }, [presets, expression, rectanglePresets]);
+    setSum(renderFunctions.drawRectangles(c, ctx, presets, expression, rectanglePresets));
+  }, [presets, expression, rectanglePresets, setSum]);
 
   return (
     <>
